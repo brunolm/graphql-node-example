@@ -1,0 +1,16 @@
+type Message {
+  id: ID!
+  message: String
+}
+
+input InputMessage {
+  message: String
+}
+
+type Mutation {
+  setMessage(input: InputMessage): Message
+}
+
+type Query {
+  Message(id: ID!): Message
+}
