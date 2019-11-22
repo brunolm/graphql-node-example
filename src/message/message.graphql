@@ -1,6 +1,9 @@
+# import Error from "../shared.graphql"
+
 type Message {
   id: ID!
   message: String
+  error: String
 }
 
 input InputMessage {

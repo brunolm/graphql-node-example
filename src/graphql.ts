@@ -1,35 +1,25 @@
 import { importSchema } from 'graphql-import'
 import { applyMiddleware } from 'graphql-middleware'
-import { makeExecutableSchema } from 'graphql-tools'
+import { IResolvers, makeExecutableSchema } from 'graphql-tools'
+import { yupMiddleware } from 'graphql-yup-middleware'
 import * as path from 'path'
 
+import { messageMutations, messageQueries } from './message'
+import { noteQueries } from './note'
+
 const typeDefs = importSchema(path.resolve(__dirname, './schema.graphql'))
-const resolvers = {
+const resolvers: IResolvers<any, any> = {
   Query: {
-    Message: (parent, { id }, context) => {
-      return [
-        { id: 1, message: 'message 1' },
-        { id: 2, message: 'message 2' },
-        { id: 3, message: 'message 3' },
-        { id: 4, message: 'message 4' },
-        { id: 5, message: 'message 5' },
-      ].find((x) => x.id === +id)
-    },
+    ...messageQueries,
 
-    Note: (parent, args, context) => {
-      console.log('args', args)
-
-      return [{ id: 5, note: 'message 5' }]
-    },
+    ...noteQueries,
   },
 
   Mutation: {
-    setMessage(_, { input }) {
-      console.log('message', input)
-
-      return { id: (Math.random() * 100) | 0, message: input.message }
-    },
+    ...messageMutations,
   },
 }
 
-export const schema = applyMiddleware(makeExecutableSchema({ typeDefs, resolvers }))
+console.log('yupMiddleware', yupMiddleware)
+
+export const schema = applyMiddleware(makeExecutableSchema({ typeDefs, resolvers }), yupMiddleware())

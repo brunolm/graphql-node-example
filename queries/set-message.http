@@ -1,0 +1,11 @@
+POST http://localhost:4000/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation setMessage {
+  setMessage(input: { message: "a@@gmail.com"}) {
+    error
+    message
+    id
+  }
+}

@@ -1,3 +1,3 @@
-# import Query.* from "message.graphql"
-# import Mutation.* from "message.graphql"
-# import Query.* from "note.graphql"
+# import Query.* from "message/message.graphql"
+# import Mutation.* from "message/message.graphql"
+# import Query.* from "note/note.graphql"
